@@ -7,12 +7,11 @@ public class Player1 : MonoBehaviour {
     Vector2 touchStartPos;
     Vector2 direction;
     Vector2 motionDirection;
-    Rigidbody2D rgd;
     public GameObject spike;
 
 	// Use this for initialization
 	void Start () {
-        rgd = gameObject.GetComponent<Rigidbody2D>();
+        motionDirection = new Vector2(1, 1);
 	}
 	
 	// Update is called once per frame
@@ -27,9 +26,15 @@ public class Player1 : MonoBehaviour {
         {
             Touch touchInput = Input.GetTouch(0);
             if (touchInput.phase == TouchPhase.Began)
+            {
                 touchStartPos = touchInput.position;
+                Debug.Log("touch's start position - " + touchInput.position);
+            }
             else if (touchInput.phase == TouchPhase.Moved)
+            {
                 direction = touchInput.position - touchStartPos;
+                Debug.Log("Direction - " + direction);
+            }
         }
     }
 
@@ -50,8 +55,9 @@ public class Player1 : MonoBehaviour {
 
     void Movement()
     {
-        float velocityX = (spike.scrollSpeed) * motionDirection.y / motionDirection.x;
-        Vector3 change = new Vector3(0, velocityX * Time.deltaTime, 0);
+        //float velocityX = ((spike.GetComponent<spike_script>()).scrollSpeed >) * motionDirection.y / motionDirection.x;
+        float velocityX = 3 * motionDirection.y / motionDirection.x;
+        Vector3 change = new Vector3(velocityX * Time.deltaTime, 0, 0);
         transform.position += change;
     }
 
