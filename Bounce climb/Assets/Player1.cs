@@ -8,10 +8,13 @@ public class Player1 : MonoBehaviour {
     Vector2 direction;
     Vector2 motionDirection;
     public GameObject spike;
+    public GameObject directionDot;
 
 	// Use this for initialization
 	void Start () {
         motionDirection = new Vector2(1, 1);
+        directionDot.transform.localScale = new Vector3(0, 0, 0);
+        directionDot.transform.Translate(transform.position);
 	}
 	
 	// Update is called once per frame
@@ -34,12 +37,20 @@ public class Player1 : MonoBehaviour {
             {
                 direction = touchInput.position - touchStartPos;
                 Debug.Log("Direction - " + direction);
+                directionDot.transform.Rotate(0, 0, Mathf.Atan2(direction.y, direction.x));
+                directionDot.transform.localScale = new Vector3(1.3f, 1.3f, 1.3f);
+            }
+            else if(touchInput.phase==TouchPhase.Ended)
+            {
+                Debug.Log("Direction set");
+                directionDot.transform.localScale = new Vector3(0, 0, 0);
             }
         }
     }
 
-    private void OnCollisionEnter2D(Collision2D collision)
-    {
+    void OnCollisionEnter2D(Collision2D collision)
+    { 
+        Debug.Log("Collision Occured");
         if (collision.gameObject.name == "Wall")
         {
             motionDirection = direction;
@@ -50,7 +61,6 @@ public class Player1 : MonoBehaviour {
             Destroy(gameObject);
             Debug.Log("Dead\n\n");
         }
-
     }
 
     void Movement()
