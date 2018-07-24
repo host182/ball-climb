@@ -15,7 +15,7 @@ public class Player1 : MonoBehaviour {
     Vector2 queuedDirection;
     Vector2 motionDirection;
     Vector2 destination;                //point on the wall that the ball will hit when the ball collidies
-    bool isStart;                       //bool value to see if the game has started - game starts after the user inputs a touch swipe and releases the hand
+    bool isStart;                       //bool value to seex if the game has started - game starts after the user inputs a touch swipe and releases the hand
     int leftOrRight;                   //left motion is 0 and right motion is 1 (coded as to make this variable store only 0 and 1)
     public float distanceFromOriginToWallCollider;  //shortest distance from walls' collider to origin (i.e. positive x-coordinate of either collider)
     public GameObject spike;
@@ -57,7 +57,7 @@ public class Player1 : MonoBehaviour {
                     float zAngle = Mathf.Atan2(queuedDirection.y, queuedDirection.x);
                     directionDot.transform.position = new Vector3(destination.x, destination.y, 0);
                     directionDot.transform.eulerAngles = new Vector3(0, 0, zAngle * Mathf.Rad2Deg);
-                    directionDot.transform.localScale = new Vector3(4, 4, 4);
+                    directionDot.transform.localScale = new Vector3(2, 1, 1);
                 }
             }
             else if(touchInput.phase==TouchPhase.Ended)                        //input is finalised in this stage
